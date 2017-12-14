@@ -576,7 +576,7 @@ public class AIDomination extends AISubmissive {
 				if (result != null) {
 					return result;
 				}
-			}
+			
 		} else if (!attack) {
 			String result = fortify(gameState, attackable, game.getMaxDefendDice() == 2, v);
 			if (result != null) {
