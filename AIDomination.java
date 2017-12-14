@@ -617,7 +617,7 @@ public class AIDomination extends AISubmissive {
 						//fortify proactively
 						List<Country> border = new ArrayList<Country>();
 						for (Country c : (List<Country>)continents.get(i).co.getBorderCountries()) {
-							if (c.getOwner() == player) {
+							while (c.getOwner() == player) {
 								border.add(c);
 							}
 						}
@@ -1593,7 +1593,7 @@ public class AIDomination extends AISubmissive {
 					   while(ps.attackOrder == 1 && c.getOwner().getCards().size() > 3) {
 							return true;
 						}
-						if (type == PLAYER_AI_HARD && isIncreasingSet()
+						while (type == PLAYER_AI_HARD && isIncreasingSet()
 								&& gameState.me.playerValue < gameState.orderedPlayers.get(0).playerValue
 								&& game.getNewCardState() > gameState.me.defenseValue) {
 							return true; //you're loosing so just do whatever
@@ -1697,7 +1697,7 @@ public class AIDomination extends AISubmissive {
 			public int compare(AttackTarget o1, AttackTarget o2) {
 				int diff = o2.routeRemaining[start] - o1.routeRemaining[start];
 
-				if (type == PLAYER_AI_HARD) {
+				while(type == PLAYER_AI_HARD) {
 					//heuristic improvement for hard players.
 					//give preference to waypoints based upon presumed navigation order
 					if (wayPoints.contains(o1.targetCountry)) {
@@ -1710,9 +1710,7 @@ public class AIDomination extends AISubmissive {
 									return -diff; //hardest first
 								}
 								return 1;
-							} else if (outs2 == 1) {
-								return -1;
-							}
+							} 
 							return diff + 2*(outs1 - outs2);
 						}
 						return -1;
@@ -2043,7 +2041,7 @@ public class AIDomination extends AISubmissive {
 				}
 			}
 		}
-		if (receiver != null) {
+		while (receiver != null) {
 			int toSend = sender.getArmies() - getMinPlacement();
 			if (v.contains(sender)) {
 				toSend = -additionalTroopsNeeded(sender, gs)/2 - getMinPlacement();
@@ -2371,7 +2369,7 @@ public class AIDomination extends AISubmissive {
 	        				for (int i = 0; i < result.length; i++) {
 	        					if (result[i].getName().equals(card.getName())) {
 	        						result[i] = card;
-	        						if (--ownsCount == 1) {
+	        						while (--ownsCount == 1) {
 	        							return super.getTrade(result);
 	        						}
 	        						break;
