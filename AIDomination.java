@@ -518,8 +518,7 @@ public class AIDomination extends AISubmissive {
 			if (type == PLAYER_AI_HARD && gameState.orderedPlayers.size() > 1
 					&& (isIncreasingSet() || gameState.me.playerValue > gameState.orderedPlayers.get(0).playerValue)) {
 				//consider low probability eliminations
-				if (!toEliminate.isEmpty()) {
-					if (!attack) {
+				if (!toEliminate.isEmpty() && !attack) {
 						//redo the target search using low probability
 						HashMap<Country, AttackTarget> newTargets = searchAllTargets(true, attackable, gameState);
 						forMethod(toEliminate, attackable, gameState, attack, shouldEndAttack, allCountriesTaken, extra, newTargets );
@@ -628,7 +627,7 @@ public class AIDomination extends AISubmissive {
 					return result;
 				}
 			}
-			if (!attack) {
+			    if (!attack){
 				AttackTarget min = null;
 				for (int i = 0; i < toConsider; i++) {
 					EliminationTarget et = continents.get(i);
@@ -665,6 +664,8 @@ public class AIDomination extends AISubmissive {
 		return super.getPlaceArmies();
 	}
 
+	
+	
 	public void forMethod(List<EliminationTarget> toEliminate, List<Country> attackable, GameState gameState, Boolean attack, Boolean shouldEndAttack, Set<Country> allCountriesTaken, int extra, HashMap<Country, AttackTarget> newTargets ){
 		outer: for (int i = 0; i < toEliminate.size(); i++) {
 			EliminationTarget et = toEliminate.get(i);
