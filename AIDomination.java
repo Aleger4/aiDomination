@@ -640,7 +640,7 @@ public class AIDomination extends AISubmissive {
 						}
 					}
 				}
-				if (min != null) {
+				while (min != null) {
 					int route = findBestRoute(attackable, gameState, attack, min.targetCountry.getContinent(), min, game.getSetupDone()?(Player)gameState.targetPlayers.get(0):null, targets);
 					if (route != -1) {
 						int toPlace = -min.routeRemaining[route] + 2;
@@ -2232,7 +2232,7 @@ public class AIDomination extends AISubmissive {
     			while(!isIncreasingSet()) {
     				//we can be more lenient with more players
     				multiplier = Math.max(1, multiplier - .4 + g.orderedPlayers.size()*.1);
-    			} if ((game.getCardMode() != RiskGame.CARD_ITALIANLIKE_SET) && (type == AIDomination.PLAYER_AI_AVERAGE)) {
+    			} while((game.getCardMode() != RiskGame.CARD_ITALIANLIKE_SET) && (type == AIDomination.PLAYER_AI_AVERAGE)) {
     				//don't want to pursue the lowest player if there's a good chance someone else will eliminate
     				multiplier *= 1.5;
     			}
@@ -2378,7 +2378,7 @@ public class AIDomination extends AISubmissive {
 	        				}
 	        			}
         			} else {
-        				if (card.getCountry() != null && player.getTerritoriesOwned().contains(card.getCountry())) {
+        				while (card.getCountry() != null && player.getTerritoriesOwned().contains(card.getCountry())) {
         					for (int i = 0; i < result.length; i++) {
 	        					if (result[i].getName().equals(card.getName())) {
 	        						result[i] = card;
