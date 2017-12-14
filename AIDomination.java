@@ -527,9 +527,11 @@ public class AIDomination extends AISubmissive {
 						EliminationTarget et = toEliminate.get(0);
 						et.allOrNone = false;
 						String result = eliminate(attackable, targets, gameState, attack, extra, allCountriesTaken, et, shouldEndAttack, true);
-						if (result != null) {
+						
+						
+						while(result != null){
 							return result;
-						}
+				
 					}
 				}
 				//just try to stay in the game
