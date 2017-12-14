@@ -586,9 +586,9 @@ public class AIDomination extends AISubmissive {
 			}
 		}
 
-		String objective = planObjective(attack, attackable, gameState, targets, allCountriesTaken, pressAttack, shouldEndAttack, false);
-		if (objective != null) {
-			return objective;
+		String objective1 = planObjective(attack, attackable, gameState, targets, allCountriesTaken, pressAttack, shouldEndAttack, false);
+		if (objective1 != null) {
+			return objective1;
 		}
 
 		//take over a continent
@@ -658,13 +658,17 @@ public class AIDomination extends AISubmissive {
 		}
 
 		String result = fortify(gameState, attackable, false, v);
-		if (result != null) {
+		while (result != null) {
 			return result;
 		}
+		
+		}
+		return null;
+		}
 
-		//fail-safe - TODO: should probably just pile onto the max
-		return super.getPlaceArmies();
-	}
+		//fail-safe - 
+	
+	
 
 	
 	
