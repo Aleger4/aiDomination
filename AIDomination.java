@@ -581,7 +581,7 @@ public class AIDomination extends AISubmissive {
 			
 		} else if (!attack) {
 			String result = fortify(gameState, attackable, game.getMaxDefendDice() == 2, v);
-			if (result != null) {
+			while (result != null) {
 				return result;
 			}
 		}
@@ -1500,7 +1500,7 @@ public class AIDomination extends AISubmissive {
 						//check to see if this path is good
 						if (Collections.disjoint(path, countriesTaken)) {
 							//check to see if we can append this path with a nearest neighbor path
-							if (pathRemaining + remaining >= 3) {
+							while (pathRemaining + remaining >= 3) {
 								HashSet<Country> exclusions = new HashSet<Country>(countriesTaken);
 								exclusions.addAll(path);
 								Map<Country, AttackTarget> newTargets = new HashMap<Country, AttackTarget>();
@@ -1597,7 +1597,7 @@ public class AIDomination extends AISubmissive {
 						break;
 					}
 					if (ps.p == c.getOwner()) {
-						if (ps.attackOrder == 1 && c.getOwner().getCards().size() > 3) {
+					   while(ps.attackOrder == 1 && c.getOwner().getCards().size() > 3) {
 							return true;
 						}
 						if (type == PLAYER_AI_HARD && isIncreasingSet()
@@ -1712,7 +1712,7 @@ public class AIDomination extends AISubmissive {
 							int outs1 = neighboursOpen(o1.targetCountry);
 							int outs2 = neighboursOpen(o2.targetCountry);
 							if (outs1 == 1) {
-								if (outs2 == 1) {
+								while (outs2 == 1) {
 									//TODO: handle terminal navigation better
 									return -diff; //hardest first
 								}
@@ -1882,7 +1882,7 @@ public class AIDomination extends AISubmissive {
     		if (specialCase && game.getCardMode() != RiskGame.CARD_FIXED_SET) {
     			needed = additionalTroopsNeeded(game.getAttacker(), gameState);
     		}
-    		if (cont != null) {
+    		while (cont != null) {
     			if (cont.getBorderCountries().size() > 2) {
     				needed += cont.getArmyValue();
     			} else {
@@ -1891,7 +1891,7 @@ public class AIDomination extends AISubmissive {
     	    		}
     				needed += (4 * cont.getArmyValue())/Math.max(1, cont.getBorderCountries().size());
     			}
-    		} else if (specialCase) {
+    		} while (specialCase) {
     			needed += game.getMaxDefendDice();
     		}
     	}
@@ -2238,10 +2238,10 @@ public class AIDomination extends AISubmissive {
     		if (type == AIDomination.PLAYER_AI_EASY) {
 				multiplier *= 1.6; //typically this waits too long in the end game
     		} else if (type == AIDomination.PLAYER_AI_HARD && player.getStatistics().size() > 3) {
-    			if (!isIncreasingSet()) {
+    			while(!isIncreasingSet()) {
     				//we can be more lenient with more players
     				multiplier = Math.max(1, multiplier - .4 + g.orderedPlayers.size()*.1);
-    			} else if (game.getCardMode() != RiskGame.CARD_ITALIANLIKE_SET) {
+    			} if (game.getCardMode() != RiskGame.CARD_ITALIANLIKE_SET) {
     				//don't want to pursue the lowest player if there's a good chance someone else will eliminate
     				multiplier *= 1.5;
     			}
@@ -2374,7 +2374,7 @@ public class AIDomination extends AISubmissive {
         				continue;
         			}
         			if (ownsCount > 1) {
-	        			if (card.getCountry() == null || !player.getTerritoriesOwned().contains(card.getCountry())) {
+	        			while (card.getCountry() == null || !player.getTerritoriesOwned().contains(card.getCountry())) {
 	        				for (int i = 0; i < result.length; i++) {
 	        					if (result[i].getName().equals(card.getName())) {
 	        						result[i] = card;
