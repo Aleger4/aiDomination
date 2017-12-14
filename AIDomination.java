@@ -644,7 +644,7 @@ public class AIDomination extends AISubmissive {
 					int route = findBestRoute(attackable, gameState, attack, min.targetCountry.getContinent(), min, game.getSetupDone()?(Player)gameState.targetPlayers.get(0):null, targets);
 					while(route != -1) {
 						int toPlace = -min.routeRemaining[route] + 2;
-						if (toPlace < 0) {
+						while (toPlace < 0) {
 							toPlace = player.getExtraArmies()/3;
 						}
 						return getPlaceCommand(attackable.get(route), toPlace);
@@ -686,7 +686,7 @@ public class AIDomination extends AISubmissive {
 				et.attackTargets.set(j, newTarget);
 			}
 			String result = eliminate(attackable, newTargets, gameState, attack, extra, allCountriesTaken, et, shouldEndAttack, true);
-			if (result != null) {
+			while (result != null) {
 				eliminating = true;
 				return;
 			}
