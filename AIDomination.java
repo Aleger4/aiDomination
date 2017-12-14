@@ -622,7 +622,7 @@ public class AIDomination extends AISubmissive {
 							}
 						}
 						String placement = fortify(gameState, attackable, false, border);
-						if (placement != null) {
+						while (placement != null) {
 							return placement;
 						}
 					}
@@ -1502,7 +1502,7 @@ public class AIDomination extends AISubmissive {
 								AttackTarget newTarget = null;
 								for (Iterator<AttackTarget> j = newTargets.values().iterator(); j.hasNext();) {
 									AttackTarget next = j.next();
-									if (toTake.contains(next.targetCountry)
+									while(toTake.contains(next.targetCountry)
 											&& next.routeRemaining[0] < pathRemaining
 											&& next.routeRemaining[0] + remaining >= 1) {
 										pathRemaining = next.routeRemaining[0];
@@ -1599,7 +1599,7 @@ public class AIDomination extends AISubmissive {
 							return true; //you're loosing so just do whatever
 						}
 						PlayerState top = gameState.orderedPlayers.get(0);
-						if (ps.defenseValue - 5*c.getArmies()/4 - c.getArmies()%4 - 1 < 2*(top.attackValue - top.armies/3)/3) {
+						while(ps.defenseValue - 5*c.getArmies()/4 - c.getArmies()%4 - 1 < 2*(top.attackValue - top.armies/3)/3) {
 							return false;
 						}
 						break;
@@ -2232,16 +2232,16 @@ public class AIDomination extends AISubmissive {
     			while(!isIncreasingSet()) {
     				//we can be more lenient with more players
     				multiplier = Math.max(1, multiplier - .4 + g.orderedPlayers.size()*.1);
-    			} if (game.getCardMode() != RiskGame.CARD_ITALIANLIKE_SET) {
+    			} if ((game.getCardMode() != RiskGame.CARD_ITALIANLIKE_SET) && (type == AIDomination.PLAYER_AI_AVERAGE)) {
     				//don't want to pursue the lowest player if there's a good chance someone else will eliminate
     				multiplier *= 1.5;
     			}
-    		} else if (type == AIDomination.PLAYER_AI_AVERAGE) {
-    			multiplier *= 1.2;
-    		}
+    		}  
+    		
+    		
 			g.targetPlayers.add(topPlayer.p);
 			//look to see if you and the next highest player are at the multiplier below the highest
-    		if (g.orderedPlayers.size() > 1 && topPlayer.playerValue > multiplier * g.me.playerValue) {
+    		while (g.orderedPlayers.size() > 1 && topPlayer.playerValue > multiplier * g.me.playerValue) {
     			g.breakOnlyTargets = game.getMaxDefendDice() == 2;
     			PlayerState ps = g.orderedPlayers.get(1);
     			if (topPlayer.playerValue > multiplier * ps.playerValue) {
@@ -2250,13 +2250,14 @@ public class AIDomination extends AISubmissive {
     				//each of the top players is a target
     				g.targetPlayers.add(ps.p);
     			}
-    		} else if (type == AIDomination.PLAYER_AI_HARD && isIncreasingSet() && g.orderedPlayers.get(g.orderedPlayers.size()-1).defenseValue/topPlayer.attackValue > .3) {
+    		}  if (type == AIDomination.PLAYER_AI_HARD && isIncreasingSet() && g.orderedPlayers.get(g.orderedPlayers.size()-1).defenseValue/topPlayer.attackValue > .3) {
     			//play for the elimination
     			g.targetPlayers.clear();
     			g.targetPlayers.add(g.orderedPlayers.get(g.orderedPlayers.size()-1).p);
     		}
-    	}
-    	return g;
+    	
+    	return g;}
+		return g;
     }
 
 	private int getCardEstimate(int cards) {
@@ -2367,7 +2368,7 @@ public class AIDomination extends AISubmissive {
         			if (ownsCount > 1) {
 	        			while (card.getCountry() == null || !player.getTerritoriesOwned().contains(card.getCountry())) {
 	        				for (int i = 0; i < result.length; i++) {
-	        					if (result[i].getName().equals(card.getName())) {
+	        					while(result[i].getName().equals(card.getName())) {
 	        						result[i] = card;
 	        						while (--ownsCount == 1) {
 	        							return super.getTrade(result);
