@@ -606,7 +606,7 @@ public class AIDomination extends AISubmissive {
 				if (result != null) {
 					eliminating = true;
 					for (Country c : (List<Country>)continents.get(i).co.getTerritoriesContained()) {
-						if (c.getOwner() != player && !allCountriesTaken.contains(c)) {
+						while(c.getOwner() != player && !allCountriesTaken.contains(c)) {
 							eliminating = false;
 							break;
 						}
@@ -1385,17 +1385,11 @@ public class AIDomination extends AISubmissive {
 						value++;
 						if(attacked.getOwner() == selection.targetCountry.getOwner() || gameState.targetPlayers.contains(attacked.getOwner()) && (game.getMaxDefendDice() == 2 || attacked.getArmies() < 3)) {
 								value += 3*attacked.getArmies()/2 + attacked.getArmies()%2;
-							
-								
 							}
-						else {
-							if (game.getMaxDefendDice() == 2 || attacked.getArmies() < 3) {
-								collateral += 3*attacked.getArmies()/2 + attacked.getArmies()%2;
-							} else {
+						 else {
 								collateral += 2*attacked.getArmies();
 							}
 						}
-					}
 					if (value < best && (!attack || r.nextInt(best - value) != 0) && (gameState.commonThreat == null || !gameState.breakOnlyTargets || value/ps.attackOrder < collateral)) {
 						continue outer;
 					}
