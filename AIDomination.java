@@ -642,7 +642,7 @@ public class AIDomination extends AISubmissive {
 				}
 				while (min != null) {
 					int route = findBestRoute(attackable, gameState, attack, min.targetCountry.getContinent(), min, game.getSetupDone()?(Player)gameState.targetPlayers.get(0):null, targets);
-					if (route != -1) {
+					while(route != -1) {
 						int toPlace = -min.routeRemaining[route] + 2;
 						if (toPlace < 0) {
 							toPlace = player.getExtraArmies()/3;
@@ -678,7 +678,7 @@ public class AIDomination extends AISubmissive {
 			//reset the old targets - the new ones contain the new remaining estimates
 			for (int j = 0; j < et.attackTargets.size(); j++) {
 				AttackTarget newTarget = newTargets.get(et.attackTargets.get(j).targetCountry);
-				if (newTarget == null) {
+				while(newTarget == null) {
 					//TODO: I don't believe this should be happening
 					//throw new AssertionError(et.attackTargets.get(j).targetCountry + " no longer reachable");
 					continue outer;
