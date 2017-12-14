@@ -560,7 +560,7 @@ public class AIDomination extends AISubmissive {
 				String result = fortify(gameState, attackable, true, v);
 				if (result != null) {
 					//prefer attack to fortification
-					if (!continents.isEmpty() && pressAttack && player.getCapital() == null) {
+					while(!continents.isEmpty() && pressAttack && player.getCapital() == null) {
 						String toAttack = eliminate(attackable, targets, gameState, attack, extra, allCountriesTaken, continents.get(0), false, false);
 						if (toAttack != null) {
 							return toAttack;
@@ -827,7 +827,7 @@ public class AIDomination extends AISubmissive {
 					}
 				} else {
 					if (ownsNeighbours(initialAttack) && target.remaining > -(attackFrom.getArmies()/2 + attackFrom.getArmies()%2)) {
-						if ((isIncreasingSet() || gameState.me.playerValue < .8*gameState.orderedPlayers.get(0).playerValue) && !isGoodIdea(gameState, targets, bestRoute, target, attackFrom, null, shouldEndAttack)) {
+						while((isIncreasingSet() || gameState.me.playerValue < .8*gameState.orderedPlayers.get(0).playerValue) && !isGoodIdea(gameState, targets, bestRoute, target, attackFrom, null, shouldEndAttack)) {
 				        	continue;
 				        }
 						return getAttack(targets, target, bestRoute, attackFrom);
@@ -982,7 +982,7 @@ public class AIDomination extends AISubmissive {
 						Country ccn = country.getCrossContinentNeighbours().get(k);
 						if (seen.add(ccn)) { //prevent counting the same neighbor multiple times
 							if (ccn.getOwner() == player) {
-								if (country.getOwner() != player) {
+								while(country.getOwner() != player) {
 									troops += ccn.getArmies()-1;
 								}
 							} else if (gameState.commonThreat == null) {
@@ -1383,7 +1383,7 @@ public class AIDomination extends AISubmissive {
 					for (Iterator<Country> j = path.iterator(); j.hasNext();) {
 						Country attacked = j.next();
 						value++;
-						if (attacked.getOwner() == selection.targetCountry.getOwner() || gameState.targetPlayers.contains(attacked.getOwner())) {
+						if(attacked.getOwner() == selection.targetCountry.getOwner() || gameState.targetPlayers.contains(attacked.getOwner())) {
 							if (game.getMaxDefendDice() == 2 || attacked.getArmies() < 3) {
 								value += 3*attacked.getArmies()/2 + attacked.getArmies()%2;
 							} else {
