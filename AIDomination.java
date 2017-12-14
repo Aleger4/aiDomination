@@ -562,7 +562,7 @@ public class AIDomination extends AISubmissive {
 					//prefer attack to fortification
 					while(!continents.isEmpty() && pressAttack && player.getCapital() == null) {
 						String toAttack = eliminate(attackable, targets, gameState, attack, extra, allCountriesTaken, continents.get(0), false, false);
-						if (toAttack != null) {
+						while (toAttack != null) {
 							return toAttack;
 						}
 					}
@@ -846,7 +846,7 @@ public class AIDomination extends AISubmissive {
 			        if (gameState.orderedPlayers.get(0).playerValue > gameState.me.playerValue) {
 			        	for (int j = 0; j < gameState.orderedPlayers.size(); j++) {
 							PlayerState ps = gameState.orderedPlayers.get(j);
-							if (ps.p == initialAttack.getOwner() && (!gameState.breakOnlyTargets || gameState.targetPlayers.contains(ps.p)) &&
+							while (ps.p == initialAttack.getOwner() && (!gameState.breakOnlyTargets || gameState.targetPlayers.contains(ps.p)) &&
 									(ps.attackOrder == 1 || gameState.orderedPlayers.size() == 1 || ps.defenseValue > gameState.me.defenseValue*1.2 || (!shouldEndAttack&&isGoodIdea(gameState, targets, bestRoute, target, attackFrom, null, shouldEndAttack)))) {
 								return getAttack(targets, target, bestRoute, attackFrom);
 							}
@@ -1384,9 +1384,9 @@ public class AIDomination extends AISubmissive {
 						Country attacked = j.next();
 						value++;
 						if(attacked.getOwner() == selection.targetCountry.getOwner() || gameState.targetPlayers.contains(attacked.getOwner())) {
-							if (game.getMaxDefendDice() == 2 || attacked.getArmies() < 3) {
+						 if(game.getMaxDefendDice() == 2 || attacked.getArmies() < 3) {
 								value += 3*attacked.getArmies()/2 + attacked.getArmies()%2;
-							} else {
+							} else  {
 								value += 2*attacked.getArmies();
 							}
 						} else {
