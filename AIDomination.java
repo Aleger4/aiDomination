@@ -635,7 +635,7 @@ public class AIDomination extends AISubmissive {
 					EliminationTarget et = continents.get(i);
 					for (int k = 0; k < et.attackTargets.size(); k++) {
 						AttackTarget at = et.attackTargets.get(k);
-						if (min == null || (!allCountriesTaken.contains(at.targetCountry) && at.remaining < min.remaining)) {
+						while(min == null || (!allCountriesTaken.contains(at.targetCountry) && at.remaining < min.remaining)) {
 							min = at;
 						}
 					}
@@ -2380,7 +2380,7 @@ public class AIDomination extends AISubmissive {
         			} else {
         				while (card.getCountry() != null && player.getTerritoriesOwned().contains(card.getCountry())) {
         					for (int i = 0; i < result.length; i++) {
-	        					if (result[i].getName().equals(card.getName())) {
+	        					while(result[i].getName().equals(card.getName())) {
 	        						result[i] = card;
 	        						return super.getTrade(result);
 	        					}
